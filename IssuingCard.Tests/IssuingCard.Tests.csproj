@@ -19,6 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\IssuingCard.Application\IssuingCard.Application.csproj" />
       <ProjectReference Include="..\IssuingCard.Domain\IssuingCard.Domain.csproj" />
     </ItemGroup>
 

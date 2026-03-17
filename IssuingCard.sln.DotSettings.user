@@ -3,5 +3,6 @@
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;xUnit::543E345B-2E73-4D2F-ACE3-ADBE4DAF878B::net10.0::IssuingCard.Tests.Domain.Cards.CardTests.Testing_IsExpired_Edge_Cases&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;xUnit::543E345B-2E73-4D2F-ACE3-ADBE4DAF878B::net10.0::IssuingCard.Tests.Domain.Cards.CardTests.Invalid_Month_Should_Throw_Exception&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;xUnit::543E345B-2E73-4D2F-ACE3-ADBE4DAF878B::net10.0::IssuingCard.Tests.Application.Cards.CreateCardServiceTests.CreateCard_Should_Successfully_Return_Card&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
