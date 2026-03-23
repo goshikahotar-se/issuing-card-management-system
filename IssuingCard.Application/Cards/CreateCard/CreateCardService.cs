@@ -14,7 +14,7 @@ public class CreateCardService
     
     public async Task<CreateCardResult> Handle(CreateCardCommand command, CancellationToken cancellationToken)
     {
-        Guid id = Guid.NewGuid();
+        string id = CardDetailsGeneration.RandomCardId();
         string cardNumber = CardDetailsGeneration.GenerateCardNumber();
         int expiryMonth = DateTime.UtcNow.Month;
         int expiryYear = DateTime.UtcNow.AddYears(3).Year;

@@ -2,7 +2,7 @@
 
 public class Card
 {
-    public Guid CardId { get; }
+    public string CardId { get; }
     public string CardNumber { get; }
     public int ExpiryMonth { get; }
     public int ExpiryYear { get; }
@@ -11,7 +11,7 @@ public class Card
     public decimal AvailableLimit { get; }
     public string Currency { get; }
 
-    public Card(Guid cardId, string cardNumber, int expiryMonth, int expiryYear, string cvc,
+    public Card(string cardId, string cardNumber, int expiryMonth, int expiryYear, string cvc,
         CardStatus status, decimal availableLimit, string currency)
     {
         if (expiryMonth < 1 || expiryMonth > 12)

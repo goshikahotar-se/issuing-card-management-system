@@ -1,8 +1,11 @@
+using IssuingCard.Api.Cards;
+using IssuingCard.Application.Cards;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+builder.Services.AddSingleton<ICardRepository, InMemoryCardRepository>();
+builder.Services.AddScoped<CreateCardService>();
+builder.Services.AddScoped<GetCardService>();
 
 var app = builder.Build();
 
@@ -14,28 +17,30 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
+app.MapPost("/cards",
+    async (CreateCardRequest request, CreateCardService service, CancellationToken cancellationToken) =>
     {
-        var forecast = Enumerable.Range(1, 5).Select(index =>
-                new WeatherForecast
-                (
-                    DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    Random.Shared.Next(-20, 55),
-                    summaries[Random.Shared.Next(summaries.Length)]
-                ))
-            .ToArray();
-        return forecast;
-    })
-    .WithName("GetWeatherForecast");
+        var command = new CreateCardCommand
+        {
+            InitialLimit = request.InitialLimit,
+            Currency = request.Currency
+        };
 
+        var result = await service.Handle(command, cancellationToken);
+
+        return Results.Created($"/cards/{result.CardId}", result);
+    });
+
+app.MapGet("/cards/{cardId}",
+    async (string cardId, GetCardService service, CancellationToken cancellationToken) =>
+    {
+        var result = await service.Handle(cardId, cancellationToken);
+        
+        if (result is null)
+            return Results.NotFound();
+        return Results.Ok(result);
+    });
+    
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+record CreateCardRequest(decimal InitialLimit, string Currency);

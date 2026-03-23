@@ -5,6 +5,10 @@ namespace IssuingCard.Tests.Domain.Cards;
 
 public class FakeCardRepository : ICardRepository
 {
+    public Card? LastAdded { get; private set; }
+    
+    public int AddCallCount { get; private set; }
+    
     public Task Add(Card card, CancellationToken cancellationToken)
     {
         LastAdded = card;
@@ -13,7 +17,7 @@ public class FakeCardRepository : ICardRepository
         return Task.CompletedTask;
     }
 
-    public Task<Card?> Get(Guid cardId, CancellationToken cancellationToken)
+    public Task<Card?> Get(string cardId, CancellationToken cancellationToken)
     {
         if (LastAdded == null)
             return Task.FromResult<Card?>(null);
@@ -23,8 +27,4 @@ public class FakeCardRepository : ICardRepository
 
         return Task.FromResult<Card?>(LastAdded);
     }
-    
-    public Card? LastAdded { get; private set; }
-    
-    public int AddCallCount { get; private set; }
 }

@@ -2,7 +2,7 @@
 
 public class CreateCardResult
 {
-    public Guid CardId { get; init; }
+    public string CardId { get; init; }
     public string CardNumber { get; init; }
     public int ExpiryMonth { get; init; }
     public int ExpiryYear { get; init; }

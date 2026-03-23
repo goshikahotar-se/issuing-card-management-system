@@ -1,4 +1,6 @@
-﻿namespace IssuingCard.Tests.Domain.Cards;
+﻿using IssuingCard.Application.Helper;
+
+namespace IssuingCard.Tests.Domain.Cards;
 
 using Xunit;
 using IssuingCard.Domain.Cards;
@@ -11,14 +13,14 @@ public class CardTests
     public void Testing_IsExpired_Edge_Cases(int expiryMonth, int expiryYear, bool status)
     {
         //Arrange
-        Card card = new Card(Guid.Parse("e02fd0e4-00fd-090A-ca30-0d00a0038ba0"), 
-                                        "5357370005", 
-                                        expiryMonth, 
-                                        expiryYear,
-                                        "211",
-                                        CardStatus.Active,
-                                        new decimal(100.00),
-                                        "GBP");
+        Card card = new Card(CardDetailsGeneration.RandomCardId(), 
+                            "5357370005", 
+                            expiryMonth, 
+                            expiryYear,
+                            "211",
+                            CardStatus.Active,
+                            new decimal(100.00),
+                            "GBP");
         
         //Act
         var result = card.IsExpired(DateTime.Now);
@@ -35,7 +37,7 @@ public class CardTests
         
         //Act
         Action act = () => new Card(
-            Guid.Parse("e02fd0e4-00fd-090A-ca30-0d00a0038ba0"),
+            CardDetailsGeneration.RandomCardId(),
             "5357370005",
             expiryMonth,
             2027,
